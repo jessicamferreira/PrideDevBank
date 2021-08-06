@@ -2,20 +2,36 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import dominio.Conta;
 import factory.ConnectionFactory;
 
 public class ContaDao {
-	Connection con;
+	Connection conexao;
 	
 	public ContaDao() throws SQLException {
-		con = ConnectionFactory.getConnection();
+		conexao = ConnectionFactory.getConnection();
 	}
 	
 	public void save(Conta conta) throws SQLException {
-		java.sql.Statement comando = con.createStatement();
-		comando.execute("insert into conta (numeroConta, numeroAgencia) values('"
-				+ conta.getNumeroConta() + "','" + conta.getNumeroAgencia() + "');");
+		Statement comando = conexao.createStatement();
+		
+		comando.execute(
+				"insert into conta (numeroConta,numeroAgencia,saldo,id_cliente) values("
+			    + "'" + conta.getNumeroConta() + "'" 
+			    + ",'" + conta.getNumeroAgencia() +"'"
+			    + ",'" + conta.getSaldo() + "'" 
+			    + ",'" + conta.getCliente().getId()    + "'" 
+			    		+ ");"
+			);
 	}
+	
+//	public void atualizar(Conta conta) {
+//		Statement comando = conexao.createStatement();
+//		
+//	}
+//	
+	
+
 }

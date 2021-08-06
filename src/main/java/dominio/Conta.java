@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Conta {
-	String numeroConta;
+	protected int id;
+	protected String numeroConta;
 	protected String numeroAgencia;
 	protected float saldo;
 	protected Cliente cliente;
 	protected String chavePix[] = new String[3]; // email, cpf, telefone
 
-	public Conta(String numeroConta, String numeroAgencia) {
-		this.numeroConta = numeroConta;
+	public Conta(String numeroAgencia, String numeroConta,Cliente cliente, float saldoInicial) {
 		this.numeroAgencia = numeroAgencia;
-		
+		this.numeroConta = numeroConta;
+		this.cliente = cliente;
+		this.saldo = saldoInicial;
 	}
-	
+	public Cliente getCliente() {
+		return cliente;
+	}
 	public String getNumeroConta() {
 		return numeroConta;
 	}

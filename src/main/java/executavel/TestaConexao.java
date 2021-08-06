@@ -1,39 +1,59 @@
 package executavel;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dao.ClienteDao;
 import dao.ContaDao;
+import dominio.Cliente;
 import dominio.Conta;
-import factory.ConnectionFactory;
-
 
 public class TestaConexao {
 
-	public static void main(String[] args) throws SQLException {
-		Conta conta = new Conta("002", "12356");
-		ContaDao contaDao = new ContaDao(); 
-		contaDao.save(conta);
-	}
-/*	public static void main(String[] args) {
+	
+
+	public static void main(String[] args) {
 		try {
-			Connection con = ConnectionFactory.getConnection();
+//		
+//			Connection con = ConnectionFactory.getConnection();
+//			
+//			 Statement comando = con.createStatement();
+//			  
+//			 ResultSet resultado = comando.getResultSet();
+//			 
+//			 while(resultado.next()) {
+//				 
+//				 String numeroConta = resultado.getString("numeroConta");
+//				 System.out.println( numeroConta);
+//			 }
+//	
+//
+//			 con.close();
 			
-			java.sql.Statement comando = con.createStatement();
 			
-			comando.execute("select * from Conta");
-			ResultSet resultSet = comando.getResultSet();
+			ContaDao contaDao = new ContaDao();
 			
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("numeroConta"));
-			}
-			con.close();
+			ClienteDao clienteDao = new ClienteDao();
+			
+			Cliente cliente = new Cliente("joão","01928374657","Maria");
+			
+			clienteDao.save(cliente);
+			
+			cliente = clienteDao.findByCPF("01928374657");
+			
+			System.out.println(cliente.getId() + " " + cliente.getNome() );
+			
+			
+			
+			
+			Conta conta = new Conta("002","0006",cliente,1000);
+			contaDao.save(conta);
+		
+			contaDao.findByNumeroAgenciaAndNumeroConta("002", "0006"); 
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 	}
-*/ 
 }
